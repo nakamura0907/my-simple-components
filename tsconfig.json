@@ -13,8 +13,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "skipLibCheck": true,
+    "strictBindCallApply": true,
     "strictNullChecks": true
   },
-  "include": ["src"],
-  "exclude": []
+  "include": ["src"]
 }

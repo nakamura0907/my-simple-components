@@ -1,13 +1,15 @@
 import React from 'react';
 
-export interface ButtonProps {
+export type NativeButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+export interface ButtonProps extends NativeButtonProps {
   children?: React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
-  const { children } = props;
+  const { children, ...rest } = props;
 
-  return <button>{children}</button>;
+  return <button {...rest}>{children}</button>;
 };
 
 export default Button;
