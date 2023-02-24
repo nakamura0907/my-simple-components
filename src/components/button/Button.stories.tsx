@@ -6,11 +6,13 @@ import Button from '.';
 export default {
   title: 'Button',
   component: Button,
+  args: {
+    children: 'Click!',
+  },
 } as ComponentMeta<typeof Button>;
 
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
-export const Primary = Template.bind({});
-Primary.args = {
-  children: 'click!',
-};
+export const Default = Template.bind({});
+
+export const Playground = Template.bind({});
