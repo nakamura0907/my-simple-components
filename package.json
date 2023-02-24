@@ -1,13 +1,15 @@
 {
   "name": "my-simple-components",
   "version": "0.0.3",
-  "main": "lib/index.js",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "lib"
   ],
   "license": "MIT",
   "scripts": {
-    "build": "tsc -p tsconfig-build.json",
+    "build": "rollup -c --bundleConfigAsCjs",
     "lint": "eslint src/**",
     "lint:fix": "eslint --fix src/**",
     "format": "prettier --write src/**",
@@ -17,6 +19,9 @@
   "devDependencies": {
     "@babel/core": "^7.21.0",
     "@emotion/react": "^11.10.6",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^11.0.0",
     "@storybook/addon-actions": "^6.5.16",
     "@storybook/addon-essentials": "^6.5.16",
     "@storybook/addon-interactions": "^6.5.16",
@@ -44,6 +49,10 @@
     "prettier": "^2.8.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rollup": "^3.17.2",
+    "rollup-plugin-dts": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-terser": "^7.0.2",
     "typescript": "^4.9.5"
   }
 }

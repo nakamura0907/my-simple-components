@@ -7,6 +7,8 @@
     "moduleResolution": "node",
     "strict": true,
     "declaration": true,
+    "declarationDir": "types",
+    "emitDeclarationOnly": true,
     "jsx": "react",
     "esModuleInterop": true,
     "noImplicitAny": true,
