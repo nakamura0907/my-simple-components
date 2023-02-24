@@ -3,33 +3,45 @@ import { css } from '@emotion/react';
 import React from 'react';
 
 type NativeButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
-export interface ButtonProps
-  extends NativeButtonProps {
-    /** ボタンの幅を親要素の幅に合わせる */
-    block?: boolean;
-    /** アウトラインボタン */
-    outline?: boolean;
-    /** ボタンのサイズ */
-    size?: 'small' | 'medium' | 'large';
-    /** ボタンの種類 */
-    variant?: 'primary' | 'secondary' | 'danger';
+export interface ButtonProps extends NativeButtonProps {
+  /** ボタンの幅を親要素の幅に合わせる */
+  block?: boolean;
   children?: React.ReactNode;
+  className?: string;
+  disabled?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  /** アウトラインボタン */
+  outline?: boolean;
+  /** ボタンのサイズ */
+  size?: 'small' | 'medium' | 'large';
+  /** ボタンの種類 */
+  variant?: 'primary' | 'secondary' | 'danger';
 }
 
 type RefElement = HTMLButtonElement;
 const Button = React.forwardRef<RefElement, ButtonProps>((props, ref) => {
-  const { block, outline, size, variant, disabled, onClick, className, children, ...rest } = props;
+  const {
+    block,
+    children,
+    className,
+    disabled,
+    onClick,
+    outline,
+    size,
+    variant,
+    ...rest
+  } = props;
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (disabled) {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    if (disabled != null && disabled) {
       e.preventDefault();
       return;
     }
-    onClick && onClick(e);
-  }
+    onClick?.(e);
+  };
 
   const blockStyle = React.useMemo(() => {
-    if (block) {
+    if (block != null && block) {
       return styles.blockStyle;
     }
     return null;
@@ -59,7 +71,7 @@ const Button = React.forwardRef<RefElement, ButtonProps>((props, ref) => {
   }, [variant]);
 
   const outlineStyle = React.useMemo(() => {
-    if (!outline) return null;
+    if (outline == null || !outline) return null;
 
     if (variant === 'primary') {
       return styles.outlinePrimaryStyle;
@@ -75,16 +87,20 @@ const Button = React.forwardRef<RefElement, ButtonProps>((props, ref) => {
 
   return (
     <button
-    className={className}
-    css={[styles.baseStyle, sizeStyle, variantStyle, outlineStyle, blockStyle]}
-    disabled={disabled}
-    onClick={handleClick}
-    ref={ref}
-    {...rest}
+      className={className}
+      css={[
+        styles.baseStyle,
+        sizeStyle,
+        variantStyle,
+        outlineStyle,
+        blockStyle,
+      ]}
+      disabled={disabled}
+      onClick={handleClick}
+      ref={ref}
+      {...rest}
     >
-      <span>
-        {children}
-      </span>
+      <span>{children}</span>
     </button>
   );
 });
@@ -95,7 +111,7 @@ Button.defaultProps = {
 };
 
 const styles = {
-  baseStyle : css`
+  baseStyle: css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -136,7 +152,7 @@ const styles = {
       justify-content: center;
     }
   `,
-  primaryStyle : css`
+  primaryStyle: css`
     background-color: #2196f3;
     color: #fff;
     &:focus {
@@ -153,7 +169,7 @@ const styles = {
       color: #fff;
     }
   `,
-  secondaryStyle : css`
+  secondaryStyle: css`
     background-color: #bdbdbd;
     color: #fff;
     &:focus {
@@ -170,7 +186,7 @@ const styles = {
       color: #fff;
     }
   `,
-  dangerStyle : css`
+  dangerStyle: css`
     background-color: #f44336;
     color: #fff;
     &:focus {
@@ -187,7 +203,7 @@ const styles = {
       color: #fff;
     }
   `,
-  outlinePrimaryStyle : css`
+  outlinePrimaryStyle: css`
     background-color: transparent;
     color: #2196f3;
     border-color: #2196f3;
@@ -208,7 +224,7 @@ const styles = {
       border-color: #90caf9;
     }
   `,
-  outlineSecondaryStyle : css`
+  outlineSecondaryStyle: css`
     background-color: transparent;
     color: #bdbdbd;
     border-color: #bdbdbd;
@@ -229,7 +245,7 @@ const styles = {
       border-color: #e0e0e0;
     }
   `,
-  outlineDangerStyle : css`
+  outlineDangerStyle: css`
     background-color: transparent;
     color: #f44336;
     border-color: #f44336;
@@ -250,25 +266,24 @@ const styles = {
       border-color: #ef9a9a;
     }
   `,
-  smallSizeStyle : css`
+  smallSizeStyle: css`
     padding-left: 8px;
     padding-right: 8px;
     min-width: 48px;
     min-height: 32px;
     font-size: 12px;
   `,
-  largeSizeStyle : css`
+  largeSizeStyle: css`
     padding-left: 24px;
     padding-right: 24px;
     min-width: 96px;
     min-height: 48px;
     font-size: 16px;
   `,
-  blockStyle : css`
+  blockStyle: css`
     display: block;
     width: 100%;
   `,
-}
-  
+};
 
 export default Button;
